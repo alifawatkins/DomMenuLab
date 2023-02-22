@@ -30,11 +30,31 @@ topMenuEl.style.backgroundColor = 'var(--top-menu-bg)';
 topMenuEl.classList.add('flex-around');
 
 // Menu data structure
-const menuLinks = [
+/* const menuLinks = [
     {text: 'about', href: '/about'},
     {text: 'catalog', href: '/catalog'},
     {text: 'orders', href: '/orders'},
     {text: 'account', href: '/account'},
+  ];
+*/
+
+// Menu Data structure 2 5.0
+var menuLinks = [
+    {text: 'about', href: '/about'},
+    {text: 'catalog', href: '#', subLinks: [
+      {text: 'all', href: '/catalog/all'},
+      {text: 'top selling', href: '/catalog/top'},
+      {text: 'search', href: '/catalog/search'},
+    ]},
+    {text: 'orders', href: '#' , subLinks: [
+      {text: 'new', href: '/orders/new'},
+      {text: 'pending', href: '/orders/pending'},
+      {text: 'history', href: '/orders/history'},
+    ]},
+    {text: 'account', href: '#', subLinks: [
+      {text: 'profile', href: '/account/profile'},
+      {text: 'sign out', href: '/account/signout'},
+    ]},
   ];
 
 // Iterate over the entire menuLinks array and for each "link" object:
@@ -70,4 +90,40 @@ links.forEach(a => topMenuEl.append(a))
 
 // Append the new element to the topMenuEl element.
 
+// /Week 5 - Day 2 - HW (https://perscholas.instructure.com/courses/1297/assignments/265133?module_item_id=776658)
 
+// ? Task 4.0 Select and cache the <nav id="sub-menu"> element in a variable named subMenuEl.
+const subMenuEl = document.querySelector('#sub-menu');
+
+// ? Task 4.1 Set the height subMenuEl element to be 100%.
+subMenuEl.style.height = '100%';
+
+// ? Task 4.2 Set the background color of subMenuEl to the value stored in the --sub-menu-bg CSS custom property.
+subMenuEl.style.backgroundColor = 'var(--sub-menu-bg)';
+
+// ? Task 4.3 Add the class of flex-around to the subMenuEl element.
+subMenuEl.classList.add('flex-ctr');
+
+// ? Task 4.4 Set the CSS position property of subMenuEl to the value of absolute. 
+subMenuEl.style.position = 'absolute'
+
+// ? Task 4.5 Set the CSS top property of subMenuEl to the value of 0.
+subMenuEl.style.top = '0';
+
+// ? Task 5.0 Select and cache the all of the <a> elements inside of topMenuEl in a variable named topMenuLinks. Declare a global showingSubMenu and initialize it to false.
+const topMenuLinks = document.querySelectorAll ('a');
+
+const showingSubMenu = false;
+
+// ? Task 5.2 Attach a delegated 'click' event listener to topMenuEl
+topMenuEl.addEventListener('click', function handleclick(event) {
+    event . preventDefault ();
+    
+    // return if the element clicked was not an <a›element.
+    if (showingsubmenu){
+        return
+    }
+
+    console. log()
+
+})
