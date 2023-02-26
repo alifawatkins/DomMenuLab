@@ -116,14 +116,31 @@ const topMenuLinks = document.querySelectorAll ('a');
 const showingSubMenu = false;
 
 // ? Task 5.2 Attach a delegated 'click' event listener to topMenuEl
-topMenuEl.addEventListener('click', function handleclick(event) {
-    event . preventDefault ();
+topMenuEl.addEventListener('click', function (evt) {
+    evt.preventDefault();
     
-    // return if the element clicked was not an <a›element.
-    if (showingsubmenu){
-        return
+    // return if the element clicked was not an <a> element.
+    if (evt.target.tagName != 'A') {
+      return
     }
+    console.log(evt.target.textContent);
 
-    console. log()
-
-})
+    // ? Task 5.3
+    if (evt.target.classList.contains('active')) {
+      evt.target.classList.remove('active');
+      showingSubMenu = false;
+      subMenuEl.style.top = "0";
+      return 
+    }
+    // ? Task 5.4
+    topMenuLinks.forEach (link => function () {
+      link.classList.remove('active');
+    })
+    // ? Task 5.5
+    evt.target.classList.add('active');
+  
+    // ? Task 5.6
+    if (evt.target.subLinks == true) {
+      
+    }
+});
