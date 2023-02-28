@@ -113,34 +113,89 @@ subMenuEl.style.top = '0';
 // ? Task 5.0 Select and cache the all of the <a> elements inside of topMenuEl in a variable named topMenuLinks. Declare a global showingSubMenu and initialize it to false.
 const topMenuLinks = document.querySelectorAll ('a');
 
-const showingSubMenu = false;
+let showingSubMenu = false;
 
 // ? Task 5.2 Attach a delegated 'click' event listener to topMenuEl
 topMenuEl.addEventListener('click', function (evt) {
-    evt.preventDefault();
-    
-    // return if the element clicked was not an <a> element.
-    if (evt.target.tagName != 'A') {
-      return
-    }
-    console.log(evt.target.textContent);
-
-    // ? Task 5.3
-    if (evt.target.classList.contains('active')) {
-      evt.target.classList.remove('active');
-      showingSubMenu = false;
-      subMenuEl.style.top = "0";
-      return 
-    }
-    // ? Task 5.4
-    topMenuLinks.forEach (link => function () {
-      link.classList.remove('active');
-    })
-    // ? Task 5.5
-    evt.target.classList.add('active');
+  evt.preventDefault();
   
-    // ? Task 5.6
-    if (evt.target.subLinks == true) {
-      
+  // return if the element clicked was not an <a> element.
+  if (evt.target.tagName != 'A') {
+    return
+  }
+  console.log(evt.target.textContent);
+
+  // ? Task 5.3
+  if (evt.target.classList.contains('active')) {
+    evt.target.classList.remove('active');
+    showingSubMenu = false;
+    subMenuEl.style.top = "0";
+  }
+  // ? Task 5.4
+  topMenuLinks.forEach (function(link) {
+    link.classList.remove('active');
+  });
+  // ? Task 5.5
+  evt.target.classList.add('active');
+  
+  // ? Task 5.6
+  let subLinks = [];
+  
+  menuLinks.forEach(linkRefer => {
+    if (linkRefer.text === evt.target.textContent) {
+      if (linkRefer.subLinks) {
+        showingSubMenu = true;
+        subLinks = linkRefer.subLinks
+      } else {
+        showingSubMenu = false;
+      }
     }
+  });
+
+  // ? Task 5.8
+  function buildSubMenu(subLinks) {
+    subMenuEl.innerHTML = '';
+    subLinks.forEach(obj => {
+      const a = document.createElement('a');
+      a.setAttribute('href', obj.href);
+      a.textContent = obj.text;
+      subMenuEl.appendChild(a);
+    });
+  }
+  // ? Task 5.7
+  if (showingSubMenu) {
+    buildSubMenu(subLinks)
+    subMenuEl.style.top = '100%';
+  } else {
+    subMenuEl.style.top = '0%';
+  }
+
+  // ? Task 6.4
+  if (evt.target.text === 'about') {
+    mainEl.innerHTML = `<h1>${evt.target.textContent}</h1>`;
+  }
 });
+
+// ? Task 6.0
+subMenuEl.addEventListener('click', function (evt) {
+  evt.preventDefault();
+  
+  // return if the element clicked was not an <a> element.
+  if (evt.target.tagName != 'A') {
+    return
+  }
+  console.log(evt.target.textContent);
+
+  // ? Task 6.1
+  showingSubMenu = false;
+  subMenuEl.style.top = "0";
+
+  // ? Task 6.2
+  topMenuLinks.forEach (function(link) {
+    link.classList.remove('active');
+  });
+
+  // ? Task 6.3
+  mainEl.innerHTML = `<h1>${evt.target.textContent}</h1>`;
+});
+
